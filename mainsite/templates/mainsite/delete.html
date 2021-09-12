@@ -18,16 +18,16 @@
             <h2 class="data">{{course.description.text}}</h2>
         </div>
         <div class="row">
-            <a href="/">
-                <button id="no">
+            <form method=GET action="/">
+                <button type="submit">
                     No
                 </button>
-            </a>
-            <a href="/courses/{{course.id}}/confirm_delete">
-                <button id="yes">
+            </form>
+            <form method=GET action="/courses/{{course.id}}/confirm_delete">
+                <button id="yes" type="submit">
                     Yes! I want to delete this
                 </button>
-            </a>
+            </form>
         </div>
     </body>
 </html>

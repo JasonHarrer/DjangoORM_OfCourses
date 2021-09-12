@@ -10,7 +10,7 @@ def index(request):
     return render(request, 'mainsite/index.html', context)
 
 
-def course(request):
+def course(request, course_id):
     pass
 
 
@@ -37,5 +37,7 @@ def course_delete(request, course_id):
     return render(request, 'mainsite/delete.html', context)
 
 
-def course_confirm_delete(request):
-    pass
+def course_confirm_delete(request, course_id):
+    course = Course.objects.get(id=course_id)
+    course.delete()
+    return redirect('/')
