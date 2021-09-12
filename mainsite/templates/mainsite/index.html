@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Courses assignment">
+        <title>Of Courses!</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'mainsite/css/index.css' %}">
+    </head>
+    <body>
+        {% if messages %}
+            <ul id="div_message_list">
+                {% for message in messages %}
+                    <li>{{message}}</li>   
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method=POST action="/courses/new">
+            <h2>Add a new course</h2>
+            {% csrf_token %}
+            <div class="form_row">
+                <label for="course_name">Name</label>
+                <input type="text" name="course_name" id="course_name"
+                       required minlength=5>
+            </div>
+            <div class="form_row">
+                <label for="course_description">Description</label>
+                <textarea name="course_description" id="course_description"
+                          required minlength=15></textarea>
+            </div>
+            <input type="submit" value="Add" name="course_add" id="course_add">
+        </form>
+        <main>
+            <h2>Courses</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="table_name">Course Name</th>
+                        <th class="table_description">Description</th>
+                        <th class="table_date_added">Date Added</th>
+                        <th class="table_links">Links</th>
+                        <th class="table_actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                        <tr>
+                            <td class="table_name">{{course.name}}</td>
+                            <td class="table_description">{{course.description.text}}</td>
+                            <td class="table_date_added">{{course.created_at}}</td>
+                            <td class="table_links"><a href="courses/{{course.id}}">Comments</a></td>
+                            <td class="table_actions"><a href="courses/{{course.id}}/delete">Remove</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </main>
+    </body>
+</html>

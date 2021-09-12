@@ -1,0 +1,73 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 65% 2rem 2rem;
+}
+
+
+.form_row {
+    display: flex;
+    flex: 1;
+    margin: 0.5rem 0;
+}
+
+form label  {
+    flex: 1;
+}
+
+form input, form textarea {
+    border: solid 0.1rem black;
+    border-radius: 0.2rem;
+    flex: 5;
+}
+
+form textarea {
+    height: 5rem;
+}
+
+
+form input[type=submit] {
+    box-shadow: 0.2rem 0.2rem darkgray;
+    flex: 1;
+    margin: 0.2rem 0 0.2rem auto;
+    padding: 0.5rem 1rem;
+}
+
+table  {
+    border: solid 0.2rem black;
+    border-collapse: collapse;
+    display: block;
+    margin: 0 5%;
+}
+
+thead, tbody {
+    display: block;
+}
+
+tr {
+    display: flex;
+}
+
+th, td {
+    border: solid 0.1rem black;
+    padding: 0.3rem 0.5rem;
+}
+
+.table_name {
+    flex: 2;
+}
+
+.table_description {
+    flex: 4;
+}
+
+.table_date_added, .table_links, .table_actions {
+    flex: 1;
+    text-align: center;
+}
