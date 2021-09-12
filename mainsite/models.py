@@ -31,3 +31,23 @@ class Description(models.Model):
     created_at  = models.DateTimeField(auto_now_add=True)
     updated_at  = models.DateTimeField(auto_now=True)
     objects     = DescriptionManager()
+
+
+class CommentManager(models.Manager):
+    def validate(self, POST):
+        errors = {}
+        return errors
+
+
+class Comment(models.Model):
+    course_id   = models.ForeignKey(Course, on_delete=models.CASCADE)
+    first_name  = models.CharField(max_length=50)
+    last_name   = models.CharField(max_length=50)
+    text        = models.TextField()
+    created_at  = models.DateTimeField(auto_now_add=True)
+    updated_at  = models.DateTimeField(auto_now=True)
+    objects     = CommentManager()
+
+    @property
+    def commenter(self):
+        return f'{self.first_name} {self.last_name}'

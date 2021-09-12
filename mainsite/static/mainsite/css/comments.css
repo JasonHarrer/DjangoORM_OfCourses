@@ -1,0 +1,8 @@
+form label  {
+    font-size: small;
+    flex: 2;
+}
+
+form input, form textarea {
+    flex: 3;
+}

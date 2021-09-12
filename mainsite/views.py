@@ -1,6 +1,6 @@
 from django.contrib   import messages
 from django.shortcuts import render, redirect
-from mainsite.models  import Course, Description
+from mainsite.models  import Course, Description, Comment
 
 # Create your views here.
 def index(request):
@@ -11,7 +11,11 @@ def index(request):
 
 
 def course(request, course_id):
-    pass
+    context = {
+                'course': Course.objects.get(id=course_id),
+                'comments': Comment.objects.filter(course_id=course_id).order_by('-created_at')
+              }
+    return render(request, 'mainsite/comments.html', context)
 
 
 def course_new(request):
@@ -41,3 +45,20 @@ def course_confirm_delete(request, course_id):
     course = Course.objects.get(id=course_id)
     course.delete()
     return redirect('/')
+
+
+def comment_new(request, course_id):
+    course = Course.objects.get(id=course_id)
+    errors = Comment.objects.validate(request.POST)
+    if len(errors) > 0:
+        for error in errors.values():
+            messages.error(request, error)
+        return redirect(f'/course/{course_id.id}')
+    Comment.objects.create(
+                            course_id  = course,
+                            first_name = request.POST['commenter_first_name'],
+                            last_name  = request.POST['commenter_last_name'],
+                            text       = request.POST['comment']
+                          )
+    messages.success(request, f'Your comment was successfully logged.')
+    return redirect(f'/courses/{course_id}')

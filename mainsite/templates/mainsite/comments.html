@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Courses assignment">
+        <title>Of Courses - Comments about {{course.name}}</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'mainsite/css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'mainsite/css/comments.css' %}">
+    </head>
+    <body>
+        {% if messages %}
+            <ul id="div_message_list">
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form method=POST action="/courses/{{course.id}}/new">
+            {% csrf_token %}
+            <div class="form_row">
+                <label for="commenter_first_name">Your first name:</label>
+                <input type="text" name="commenter_first_name" id="commenter_first_name"
+                       required    minlength=2                 maxlength=50>
+            </div>
+            <div class="form_row">
+                <label for="commenter_last_name">Your last name:</label>
+                <input type="text" name="commenter_last_name" id="commenter_last_name"
+                       required    minlength=2                 maxlength=50>
+            </div>
+            <div class="form_row">
+                <label for="comment">Write your comments here:</label>
+                <textarea name="comment" id="comment"></textarea>
+            </div>
+            <input type="submit" value="Submit Comment">
+        </form>
+        <main>
+            <h2>Comments about the "{{course.name}}" course</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="table_name">From</th>
+                        <th class="table_date_added">Date</th>
+                        <th class="table_description">Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td class="table_name">{{comment.commenter}}</td>
+                            <td class="table_date_added">{{comment.created_at|date:'Y/m/d g:i' }}</td>
+                            <td class="table_description">{{comment.text}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </body>
+</html>
