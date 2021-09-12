@@ -1,0 +1,42 @@
+* {
+    border: 0;
+    margin: 0;
+    pardding: 0;
+}
+
+
+h1 {
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    margin: 2rem 5rem;
+    padding: 0.5rem;
+}
+
+.label {
+    flex: 1;
+}
+
+.data {
+    flex: 5;
+}
+
+button{
+    box-shadow: 0.2rem 0.2rem darkgray;
+    font-size: larger;
+    margin: 0 auto;
+    padding: 0.5rem 1.0rem;
+}
+
+#no {
+    flex: 1;
+}
+
+#yes {
+    flex: 5;
+    background-color: red;
+    color: white;
+    flex: 2;
+}

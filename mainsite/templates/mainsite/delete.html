@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Courses assignment">
+        <title>Of courses - Delete {{course.name}}?</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'mainsite/css/delete.css' %}">
+    </head>
+    <body>
+        <h1>Are you sure you want to permanently delete the following course?</h1>
+        <div class="row">
+            <h2 class="label">Name</h2>
+            <h2 class="data">{{course.name}}</h2>
+        </div>
+        <div class="row">
+            <h2 class="label">Description</h2>
+            <h2 class="data">{{course.description.text}}</h2>
+        </div>
+        <div class="row">
+            <a href="/">
+                <button id="no">
+                    No
+                </button>
+            </a>
+            <a href="/courses/{{course.id}}/confirm_delete">
+                <button id="yes">
+                    Yes! I want to delete this
+                </button>
+            </a>
+        </div>
+    </body>
+</html>

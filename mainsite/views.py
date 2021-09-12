@@ -30,8 +30,11 @@ def course_new(request):
 
 
 
-def course_delete(request):
-    pass
+def course_delete(request, course_id):
+    context = {
+                'course': Course.objects.get(id=course_id)
+              }
+    return render(request, 'mainsite/delete.html', context)
 
 
 def course_confirm_delete(request):
