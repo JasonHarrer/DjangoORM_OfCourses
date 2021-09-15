@@ -1,49 +1,28 @@
-from django.contrib   import messages
 from django.shortcuts import render, redirect
-from mainsite.models  import Course, Description, Comment
+from mainsite         import data
 
 # Create your views here.
 def index(request):
-    context = { 
-                'courses': Course.objects.all()
-             }
+    context = data.index()
     return render(request, 'mainsite/index.html', context)
 
-
 def course(request, course_id):
-    context = {
-                'course': Course.objects.get(id=course_id),
-                'comments': Comment.objects.filter(course_id=course_id).order_by('-created_at')
-              }
+    context = data.context()
     return render(request, 'mainsite/comments.html', context)
 
 
 def course_new(request):
-    errors = Course.objects.validate(request.POST)
-    errors.update(Description.objects.validate(request.POST))
-    if len(errors ) > 0:
-        for error in errors.values():
-            messages.error(request, error)
-        return redirect('/')
-
-    new_course = Course.objects.create(name=request.POST['course_name'])
-    new_description = Description.objects.create(course_id = new_course,
-                                                 text      = request.POST['course_description'])
-    messages.success(request, f'Course {new_course.name} successfully created')
+    data.course_new(request)
     return redirect('/')
 
 
+def course_confirm_delete(request, course_id):
+    context = data.course_confirm_delete(request, course_id)
+    return render(request, 'mainsite/confirm_delete.html', context)
+
 
 def course_delete(request, course_id):
-    context = {
-                'course': Course.objects.get(id=course_id)
-              }
-    return render(request, 'mainsite/delete.html', context)
-
-
-def course_confirm_delete(request, course_id):
-    course = Course.objects.get(id=course_id)
-    course.delete()
+    result = data.course_delete(request, course_id)
     return redirect('/')
 
 

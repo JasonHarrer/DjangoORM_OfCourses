@@ -6,6 +6,8 @@
         <title>Of Courses!</title>
         {% load static %}
         <link rel="stylesheet" href="{% static 'mainsite/css/index.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="{% static 'mainsite/js/index.js' %}"/></script>
     </head>
     <body>
         {% if messages %}
@@ -47,12 +49,13 @@
                         <tr>
                             <td class="table_name">{{course.name}}</td>
                             <td class="table_description">{{course.description.text}}</td>
-                            <td class="table_date_added">{{course.created_at}}</td>
+                            <td class="table_date_added">{{course.created_at|date:'b d, Y h:m p'}}</td>
                             <td class="table_links"><a href="courses/{{course.id}}">Read Comments</a></td>
-                            <td class="table_actions"><a href="courses/{{course.id}}/delete">Remove Course</a></td>
+                            <td class="table_actions"><a href="courses/{{course.id}}/confirm_delete" class="delete_action">Remove Course</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
+            </table>
         </main>
     </body>
 </html>

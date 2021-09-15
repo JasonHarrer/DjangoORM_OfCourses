@@ -8,7 +8,16 @@ class CourseManager(models.Manager):
         if len(POST['course_name']) < 5:
             errors['course_name'] = 'Name should be 5 or more characters long'
         return errors
+    
 
+    def serialize(self, course):
+        return {
+                 'id':          course.id,
+                 'name':        course.name,
+                 'description': course.description.text,
+                 'created_at':  course.created_at.__format__('%b %d, %Y\n%I:%m %p'),
+                 'updated_at':  course.updated_at.__format__('%b %d, %Y\n%I:%m %p')
+               }
 
 class Course(models.Model):
     name        = models.CharField(max_length=100)
@@ -37,6 +46,18 @@ class CommentManager(models.Manager):
     def validate(self, POST):
         errors = {}
         return errors
+    
+    
+    def serialize(self, comment):
+        return {
+                 'id':         comment.id,
+                 'course_id':  Course.objects.serialize(comment.course_id),
+                 'first_name': comment.first_name,
+                 'last_name':  comment.last_name,
+                 'text':       comment.text,
+                 'created_at':  course.created_at.__format__('%b %d, %Y %h:%s %p'),
+                 'updated_at':  course.updated_at.__format__('%b %d, %Y %h:%s %p')
+               }
 
 
 class Comment(models.Model):
