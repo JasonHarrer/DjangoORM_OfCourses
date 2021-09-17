@@ -46,7 +46,7 @@
                 </thead>
                 <tbody>
                     {% for course in courses %}
-                        <tr>
+                        <tr id="course{{course.id}}">
                             <td class="table_name">{{course.name}}</td>
                             <td class="table_description">{{course.description.text}}</td>
                             <td class="table_date_added">{{course.created_at|date:'b d, Y h:m p'}}</td>
@@ -56,6 +56,18 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div id="modal_popup">
+                <div id="modal_dialog">
+                    <span id="modal_course_id"></span>
+                    <h3>Delete <span class="modal_course_name"></span>?</h3>
+                    <p>You have chosen to remove the course "<span class="modal_course_name"></span>".  This will permanently delete
+                           the course.  This cannot be undone.  Are you sure you wish to delete "<span class="modal_course_name"></span>"?</p>
+                    <footer>
+                        <button id="modal_no">No</button>
+                        <button id="modal_yes">Yes</button>
+                    </footer>
+                </div>
+            </div>
         </main>
     </body>
 </html>

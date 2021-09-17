@@ -1,11 +1,13 @@
 $(document).ready(function() {
     $("form").submit(onSubmit)
     $(".delete_action").click(onDeleteClick)
+
+    $("#modal_yes").click(onDelete)
+    $("#modal_no").click(function() { $("#modal_popup").hide() })
 })
 
 
 function onSubmit() {
-    console.log("onSubmit reached")
     event.preventDefault()
     data = {
              'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
@@ -14,11 +16,9 @@ function onSubmit() {
            }
     
     response = $.post('api/courses/new', data).done(function(response) {
-        console.log(response)
         if(response.success) {
-            console.log("success!")
             $("tbody").append(
-                               "<tr>" +
+                               "<tr id=\"course" + response.course.id + "\">" +
                                    "<td class=\"table_name\">" +
                                        response.course.name +
                                    "</td>" +
@@ -34,7 +34,7 @@ function onSubmit() {
                                        "</a>" +
                                    "</td>" +
                                    "<td class=\"table_actions\">" +
-                                       "<a href=\"/courses/" + response.course.id + "/confirm_delete\" class=\"delete_action\">" +
+                                       "<a href=\"courses/" + response.course.id + "/confirm_delete\" class=\"delete_action\">" +
                                            "Remove Course" +
                                        "</a>" +
                                    "</td>" +
@@ -49,5 +49,30 @@ function onSubmit() {
 
 function onDeleteClick() {
     event.preventDefault()
-    console.log("Delete anchor clicked!")
+    // Get course name
+    anchor = $(this).attr('href')
+    curr_course_id = anchor.substring(anchor.indexOf('/')+1, anchor.lastIndexOf('/'))
+    response = $.ajax('/api/courses/' + curr_course_id + "/get").done(function(response) {
+        if(response.success) {
+                curr_course_name = response.course.name
+            }
+
+            // Populate modal before showing it
+            $("#modal_course_id").text(curr_course_id)
+            $(".modal_course_name").text(curr_course_name)
+            $("#modal_popup").show()
+            $("#modal_course_id").hide()
+    })
+}
+
+
+function onDelete() {
+    $("#modal_popup").hide()
+    curr_course_id = $("#modal_course_id").text()
+    response = $.ajax('/api/courses/' + curr_course_id + '/delete').done(function(response) {
+        if(response.success) {
+            $("#course" + curr_course_id).remove()
+        }
+
+    })
 }

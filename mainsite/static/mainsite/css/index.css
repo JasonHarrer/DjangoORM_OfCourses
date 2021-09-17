@@ -34,7 +34,7 @@ form textarea {
 }
 
 
-form input[type=submit] {
+input[type=submit], button {
     box-shadow: 0.2rem 0.2rem darkgray;
     flex: 1;
     margin: 0.2rem 0 0.2rem auto;
@@ -72,4 +72,55 @@ th, td {
 .table_date_added, .table_links, .table_actions {
     flex: 1;
     text-align: center;
+}
+
+#modal_popup {
+    background-color: #778899;
+    background-color: #77889966;
+    display: none;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+#modal_dialog {
+    background-color: GhostWhite;
+    margin: 40% 30%;
+    border: solid 0.1rem black;
+}
+
+#modal_dialog p {
+    margin: 1rem;
+}
+
+#modal_course_id {
+    display: none;
+}
+
+h3 {
+    background-color: MediumBlue;
+    color: MintCream;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    padding 0.5rem;
+}
+
+footer button {
+    margin: 1rem 6.5rem;
+}
+
+footer #modal_no {
+    background-color: red;
+}
+
+footer #modal_yes {
+    background-color: green
 }

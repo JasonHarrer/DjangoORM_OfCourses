@@ -15,6 +15,7 @@ def course():
              'comments': Comment.objects.filter(course_id=course_id).order_by('-created_at')
            }
 
+
 def course_new(request):
     errors = Course.objects.validate(request.POST)
     errors.update(Description.objects.validate(request.POST))
@@ -32,6 +33,13 @@ def course_new(request):
              'success': True,
              'course': Course.objects.serialize(new_course)
            }
+
+
+def course_get(request, course_id):
+        return {
+                 'success': True,
+                 'course': Course.objects.serialize(Course.objects.get(id=course_id))
+               }
 
 
 def course_confirm_delete(request, course_id):

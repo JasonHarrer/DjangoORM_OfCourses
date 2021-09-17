@@ -9,3 +9,7 @@ def course_new(request):
 
 def course_delete(request, course_id):
     return JsonResponse(data.course_delete(request, course_id))
+
+
+def course_get(request, course_id):
+    return JsonResponse(data.course_get(request, course_id))
